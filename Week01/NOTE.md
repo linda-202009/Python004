@@ -18,9 +18,9 @@
 
 >2.1 Chrom浏览器调试功能快捷键：`command + option + i` ;
 
->2.2 `from bs4 import BeautifulSoup as bs`    as 切记重名函数或者包一定不要重名；
+>2.2 `from bs4 import BeautifulSoup as bs`  as 切记重名函数或者包一定不要重名；
 
->2.3 BeautifulSoup 内置默认解析方式--THML,缺点：解析效果不高；
+>2.3 BeautifulSoup 内置默认解析方式--THML, 缺点：解析效果不高；
 
 >2.4 `bs_info.find_all('div', attrs={'class': 'hd'})` 查找div元素,以及div下面的 class属性下的，名称等于hd的;
 
@@ -42,4 +42,12 @@
 >3.5 保存到csv文件，字符编码`utf8`，如果是windows需要使用`gbk`字符集。
 
 ### 4. 实现爬虫的自动翻页功能
+>**学习知识要点:**
+
+>4.1 元组推导式：`tuple(f'https://movie.douban.com/top250?start={ page * 25 }&filter=' for page in range(10))` ;
+
+>4.2 page 实现翻页；
+
+
+
 
