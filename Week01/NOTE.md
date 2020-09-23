@@ -18,7 +18,7 @@
     2.6 atag.get('href') 获取href链接
 
 ### 3. 使用XPath解析网页 -- 获取详情页的相关信息
-    **学习知识要点**：
+    >        <strong>学习知识要点</strong>
     3.1 Chrom浏览器快捷键搜索栏：command + f
     3.2 Chrom 复制XPath信息到搜索栏
     3.3 selector.xpath('//*[@id="info"]/span[10]/text()') /text 获取当前的内容；
