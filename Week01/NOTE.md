@@ -85,51 +85,51 @@
 
 >6.3 HTTP协议请求与返回头部
 
-> + 1、HTTP协议请求方式
+> > + 1、HTTP协议请求方式
 
-> + 1 ) `GET或POST`：请求类型，后接请求资源、协议和版本
+> > > + 1 ) `GET或POST`：请求类型，后接请求资源、协议和版本
 
-> + 2 ) `Host`：主机和端口
+> > > + 2 ) `Host`：主机和端口
 
-> + 3 ) `Connection`：是否使用持续连接
+> > > + 3 ) `Connection`：是否使用持续连接
 
-> + 4 ) `User-Agent`：客户端浏览器的名称
+> > > + 4 ) `User-Agent`：客户端浏览器的名称
 
-> + 5 ) `Accept`：浏览器可接受的MIME类型
+> > > + 5 ) `Accept`：浏览器可接受的MIME类型
 
-> + 6 ) `Accept-Encoding`：浏览器知道如何解码的数据编码类型
+> > > + 6 ) `Accept-Encoding`：浏览器知道如何解码的数据编码类型
 
-> + 7 ) `Accept-Language`：浏览器指定的语言
+> > > + 7 ) `Accept-Language`：浏览器指定的语言
 
-> + 8 ) `Accept-Charset`：浏览器支持的字符编码
+> > > + 8 ) `Accept-Charset`：浏览器支持的字符编码
 
-> + 9 ) `Cookie`：保存的Cookie对象
+> > > + 9 ) `Cookie`：保存的Cookie对象
 
-> + 2、HTTP响应头
+> > + 2、HTTP响应头
 
 > >　响应头用于指示客户端如何处理响应体，告诉浏览器响应的类型、字符编码和字节大小等信息。
 
-> + 1 ) `Allow`：服务器支持哪些请求方法（如GET、POST等）
+> > > + 1 ) `Allow`：服务器支持哪些请求方法（如GET、POST等）
 
-> + 2 ) `Content-Encoding`：文档的编码（Encode）类型。只有在解码之后才可以得到Content-Type头指定的内容类型
+> > > + 2 ) `Content-Encoding`：文档的编码（Encode）类型。只有在解码之后才可以得到Content-Type头指定的内容类型
 
-> + 3 ) `Content-Length`：内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据
+> > > + 3 ) `Content-Length`：内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据
 
-> + 4 ) `Content-Type`：表示后面的文档属于什么MIME类型
+> > > + 4 ) `Content-Type`：表示后面的文档属于什么MIME类型
 
-> + 5 ) `Date`：当前的时间
+> > > + 5 ) `Date`：当前的时间
 
-> + 6 ) `Expires`：文档过期时间
+> > > + 6 ) `Expires`：文档过期时间
 
-> + 7 ) `Refresh`：表示浏览器应该在多少时间之后刷新文档，以秒计
+> > > + 7 ) `Refresh`：表示浏览器应该在多少时间之后刷新文档，以秒计
 
-> + 8 ) `Server`：服务器名称
+> > > + 8 ) `Server`：服务器名称
 
-> + 9 ) `Set-Cookie`：设置与页面关联的Cookie
+> > > + 9 ) `Set-Cookie`：设置与页面关联的Cookie
 
-> + 10 ) `WWW-Authenticate`：客户应该在Authorization头中提供的授权信息类型
+> > > + 10 ) `WWW-Authenticate`：客户应该在Authorization头中提供的授权信息类型
 
-> + 3、HTTP响应体
+> > + 3、HTTP响应体
 
 > >　响应头之后紧跟着一个空行，然后接响应体。响应体就是Web服务器发送到客户端的实际内容。除网页外，响应体还可以是诸如Word、Excel或PDF等其他类型的文档，具体是哪种文档类型由`Content-Type`指定的MIME类型决定。
 
