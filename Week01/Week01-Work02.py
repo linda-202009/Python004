@@ -7,3 +7,4 @@
 猫眼电影网址： https://maoyan.com/films?showType=3
 要求：必须使用 Scrapy 框架及其自带的 item pipeline、选择器功能，不允许使用 bs4 进行页面内容的筛选。
 '''
+
