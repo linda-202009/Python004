@@ -96,7 +96,7 @@ def saveExcel(mylist, maoyanUrl):
         ws.write(num, 1, i[1])
         ws.write(num, 2, i[2])
 
-    wb.save('./Week01/%s.xls' %(moiveName))
+    wb.save('./Week01/%s.csv' %(moiveName))
 
 
 def main():
