@@ -11,6 +11,8 @@ import requests
 from bs4 import BeautifulSoup as bs
 import lxml.etree
 import re
+import pandas as pd
+import xlwt
 
 def getURL(maoyanUrl):
     headers = {"Content-Type": "text/html; charset=utf-8",
@@ -64,16 +66,45 @@ def getDetailPage(dateilUrl):
 
     # 电影类型
     movieType = []
-    for i in range(5):
-        movieType += selector.xpath('/html/body/div[3]/div/div[2]/div[1]/ul/li[1]/a[%s]/text()' %(i))
+    for Num in range(5):
+        movieType += selector.xpath('/html/body/div[3]/div/div[2]/div[1]/ul/li[1]/a[%s]/text()' %(Num))
 
-    mylist = (dateilUrl, movieName[0], movieDate[0], movieType[::])
-    print (mylist)
+    mylist = (movieName[0], movieType[::], movieDate[0])
+    return mylist
+
+def saveExcel(mylist, maoyanUrl):
+    moiveName = "Week01_Work01_Moive"
+    save_file = pd.DataFrame(mylist)
+    title = "爬取猫眼地址: %s" %(maoyanUrl)
+    style0 = xlwt.easyxf('font: name Times New Roman, color-index red, bold on',
+                        num_format_str='#,##0.00')
+    style1 = xlwt.easyxf('align: wrap on, vert centre, horiz left', 
+                        num_format_str='YYYY-MM-D')
+
+    wb = xlwt.Workbook(encoding = 'utf-8')
+    ws = wb.add_sheet('电影TOP10列表', cell_overwrite_ok = True)
+
+    ws.write(0, 0, title, style0) 
+    ws.write(1, 0, "制表人: Linda", style1)
+    ws.write(2, 0, "电影名称", style0)
+    ws.write(2, 1, "电影类型", style0)
+    ws.write(2, 2, "上映日期", style0)
+    num = 2
+    for i in mylist:
+        num += 1
+        ws.write(num, 0, i[0])
+        ws.write(num, 1, i[1])
+        ws.write(num, 2, i[2])
+
+    wb.save('./Week01/%s.xls' %(moiveName))
+
 
 def main():
-    URL = getURL("https://maoyan.com/films?showType=3")
+    maoYanUrl = "https://maoyan.com/films?showType=3"
+    topUrl = getURL(maoYanUrl)
     print ("-" * 120)
-    [getDetailPage(i) for i in URL]
+    Mylist = [getDetailPage(i) for i in topUrl]
+    saveExcel(mylist=Mylist, maoyanUrl=maoYanUrl)
         
 if __name__ == "__main__":
     main()
