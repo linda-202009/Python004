@@ -9,15 +9,15 @@
 '''
 
 import scrapy
-from lxml import etree
 from scrapy import Request
 from scrapy.selector import Selector
 from maoyanmoive.items import MaoyanmoiveItem
 
-class MaoYanMoviesSpider(scrapy.Spider):
+
+class MaoyanSpiderSpider(scrapy.Spider):
     name = 'maoyan'
-    allowed_domains = ['maoyan.com']
-    start_urls = ['http://maoyan.com/']
+    allowed_domains = ['movie.maoyan.com']
+    start_urls = 'https://maoyan.com/films?showType=3'
     
     def start_requests(self):
         url = "https://maoyan.com/films?showType=3"
@@ -26,24 +26,18 @@ class MaoYanMoviesSpider(scrapy.Spider):
         # callback 回调函数，引擎回将下载好的页面(r的对象)发给该方法，执行数据解析
         # 这里可以使用callback指定新的函数，不是用parse作为默认的回调参数
 
-    def parse(self, r):
-        html = etree.HTML(r.text, etree.HTMLParser())
-        moiveName = html.xpath('//dd/div[1]/div[2]/a/div/div[1]/span[1]/text()')
-        moiveType = html.xpath('//dd/div[1]/div[2]/a/div/div[2]/text()')
-        moiveUpdate = html.xpath('//dd/div[1]/div[2]/a/div/div[4]/text()')
+    def parse(self, response):
+        movies = Selector(response=response).xpath('//div[@class="movie-hover-info"]')
 
-        moiveTypes = eval(str(moiveType).replace(' ', '').replace('\\n', ''))
-        moiveUpdates = eval(str(moiveUpdate).replace(' ', '').replace('\\n', ''))
-
-        for i in moiveTypes:
-            if len(i) == 0:
-                moiveTypes.remove(i)
-                moiveUpdates.remove(i)
-
-        movieLists = list(zip(moiveName, moiveTypes, moiveUpdates))
-        movieList10 = movieLists[0:10:1]
-
-        movieData = [ MaoyanmoiveItem(moiveNames=i[0], moiveTypes=i[1], moiveUpdates=i[2]) for i in movieList10]
-        
-        return movieData
+        # Xpath获取电影前10个
+        for movie in movies[0:10:1]:
+            movie_items = MaoyanmoiveItem()
+            # get() getall() 是新版本的方法,取不到就返回None,官方文档推荐使用
+            moiveNames = movie.xpath('./div[1]/span[1]/text()').get().strip()
+            moiveTypes = movie.xpath('./div[2]/text()').getall()[-1].strip()            
+            moiveUpdates = movie.xpath('./div[4]/text()').getall()[-1].strip()
+            movie_items['moiveNames'] = moiveNames
+            movie_items['moiveTypes'] = moiveTypes
+            movie_items['moiveUpdates'] = moiveUpdates
+            yield movie_items
 

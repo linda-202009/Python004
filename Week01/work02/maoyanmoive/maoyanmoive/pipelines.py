@@ -5,37 +5,27 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
-
-# class MaoyanmoivePipeline:
-#     #def process_item(self, item, spider):
-#     #    return item
-
-#     # 每一个item管道组件都会调用该方法，并且必须返回一个item对象实例或raise DropItem异常
-#     def process_item(self, item, spider):
-#         title = item['title']
-#         link = item['link']
-#         content = item['content']
-#         output = f'|{title}|\t|{link}|\t|{content}|\n\n'
-#         with open('./maoyanmovie.txt', 'a+', encoding='utf-8') as article:
-#             article.write(output)
-#         return item
-
-# useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-from scrapy.exporters import CsvItemExporter
-import csv
-
+import xlwt
+import pandas as pd
+import json
 
 class MaoyanmoivePipeline:
-    def __init__(self):
-        self.file = open("maoyanmoive.csv", "a+", encoding="utf-8", newline='')
-        self.headers = {"moiveNames", "moiveTypes", "moiveUpdates"}
-        self.writer = csv.DictWriter(self.file, fieldnames=self.headers)
-        self.writer.writeheader()
 
-    def process_item(self, item, spider):
-        self.writer.writerow(item)
-        return item
-    
-    def close_spider(self, spider):
-        self.file.close()
+    # 每一个item管道组件都会调用该方法，并且必须返回一个item对象实例或raise DropItem异常
+    def process_item(self, movie_items, spider):
+        moiveNames = movie_items['moiveNames']
+        moiveTypes = movie_items['moiveTypes']
+        moiveUpdates = movie_items['moiveUpdates']
+
+        fileone = f'{moiveNames},{moiveTypes},{moiveUpdates}\n'
+        with open('./maoyanmovie_top10.csv', 'a+', encoding='utf-8') as article:
+            article.write(fileone)
+
+        return movie_items
+
+
+
+
+
+

@@ -8,10 +8,6 @@
 import scrapy
 
 class MaoyanmoiveItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    #pass
-    
     moiveNames = scrapy.Field()
     moiveTypes = scrapy.Field()
     moiveUpdates = scrapy.Field()
